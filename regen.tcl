@@ -9,6 +9,22 @@ proc Debug {} {
     parray ::parent
 }
 
+proc FixBit {p} {
+    if {$::reverse_bits} {
+	return [expr 31 - $p]
+    } else {
+	return $p
+    }
+}
+
+proc FixField {p w} {
+    if {$::reverse_bits} {
+	return [expr 31 - ($p + $w - 1)]
+    } else {
+	return $p
+    }
+}
+
 proc New {parent type} {
     set obj obj[incr ::objcount]
     set ::attribute_comment($obj)  ""
@@ -115,9 +131,11 @@ proc Visit {fd obj} {
 	} register {
 	    puts $fd "#define ${name}\t[format $fmt $offset]$cmt"
 	} bit {
+	    set pos [FixBit $pos]
 	    puts $fd "#define ${name}\t(1<<$pos)$cmt"
 	} field {
 	    set mask [Mask $width]
+	    set pos [FixField $pos $width]
 	    puts $fd "#define ${name}_SHIFT\t(1<<$pos)$cmt"
 	    puts $fd "#define ${name}_MASK\t($mask<<$pos)"
 	}
@@ -141,9 +159,11 @@ proc VisitBits {fd obj} {
 	    puts $fd ""
 	    puts $fd "/* Bit definitions for the ${name} register */"
 	} bit {
+	    set pos [FixBit $pos]
 	    puts $fd "#define [format $::nfmt $name] (1<<$pos)$cmt"
 	} field {
 	    set mask [Mask $width]
+	    set pos [FixField $pos $width]
 	    puts $fd "#define [format $::nfmt ${name}_SHIFT] (1<<$pos)$cmt"
 	    puts $fd "#define [format $::nfmt ${name}_MASK] ($mask<<$pos)"
 	}
@@ -180,6 +200,7 @@ if {$argc != 1} {
     puts "need an input file"
     exit -1
 }
+set ::reverse_bits 0
 set infile [lindex $argv 0]
 set fd [open $infile "r"]
 set all [read $fd]
@@ -191,6 +212,10 @@ ParsePairs $root $all
 set ::nfmt [NameFormat]
 
 #ShowObject $root 0
+set id [string toupper [file rootname $infile]]
+puts stdout "#ifndef HAVE_${id}_REGISTERS"
+puts stdout "#define HAVE_${id}_REGISTERS"
 VisitRegisters stdout $root
 VisitBits stdout $root
-puts ""
+puts stdout ""
+puts stdout "#endif"
