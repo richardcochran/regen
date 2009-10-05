@@ -1,0 +1,62 @@
+base {
+
+    name   CONTROL_BASE
+    offset 0x1000
+    width 32
+
+    register {
+	name   GSTATUS comment {Global Status Register.}
+	width  32
+	offset 0x0
+	bit {
+	    name OKAY pos 0 comment {1 means okay, 0 means bad news.}
+	}
+	bit {
+	    name ERR pos 1 comment {Funky shoes.}
+	}
+	field {
+	    name SPEEDYGONZ pos 2 width 3 comment {He is really fast.}
+	}
+    }
+
+    register {
+	name   ICR comment {Interrupt Control Register.}
+	width  32
+	offset 0x4
+	bit {
+	    name ENABLE
+	    pos 0
+	}
+    }
+
+    register {
+	name ISR comment {Interrupt Status Register.}
+	width 32
+	offset 0x8
+	bit { name PEND pos 0 }
+	bit { name ACK  pos 1 }
+	bit { name OVER pos 2 }
+    }
+}
+
+base {
+    name BAR2
+    offset 0x2000
+    width 64
+
+    register {
+	name REG1 width 32 offset 0x8
+	bit { name BIT1 pos 0 }
+	bit { name BIT2 pos 1 }
+	bit { name BIT3 pos 2 }
+	bit { name BIT4 pos 3 }
+    }
+
+    register {
+	name REG2 width 32 offset 0xC
+	bit { name OPT1 pos 0 }
+	bit { name OPT2 pos 1 }
+	bit { name OPT3 pos 2 }
+	bit { name OPT4 pos 3 }
+    }
+}
