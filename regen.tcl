@@ -156,8 +156,10 @@ proc VisitBits {fd obj} {
     switch -exact -- $type {
 	base {
 	} register {
-	    puts $fd ""
-	    puts $fd "/* Bit definitions for the ${name} register */"
+	    if {[llength $::children($obj)]} {
+		puts $fd ""
+		puts $fd "/* Bit definitions for the ${name} register */"
+	    }
 	} bit {
 	    set pos [FixBit $pos]
 	    puts $fd "#define [format $::nfmt $name] (1<<$pos)$cmt"
