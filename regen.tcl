@@ -175,6 +175,50 @@ proc VisitBits {fd obj} {
     }
 }
 
+namespace eval DefineStyle {
+
+    proc BeginBase {fd name fmt offset cmt} {
+	puts $fd ""
+	puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+    }
+
+    proc EndBase {fd name fmt offset cmt} {
+    }
+
+    proc Register {fd name fmt offset width cmt} {
+	puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+    }
+}
+
+namespace eval StructureStyle {
+
+    proc BeginBase {fd name fmt offset cmt} {
+	set ::register_offset 0
+	set ::padding_count 0
+	puts $fd ""
+	puts $fd "struct [string tolower $name] \{ $cmt"
+    }
+
+    proc EndBase {fd name fmt offset cmt} {
+	puts $fd "\};"
+    }
+
+    proc Register {fd name fmt offset width cmt} {
+	set bytes [expr $width / 8]
+	set coff  [expr $::register_offset + $bytes]
+	if {$offset != $coff} {
+	    set pad [expr $offset - $coff]
+	    if {$pad > 0} {
+		puts $fd "\tu8  res$::padding_count\[$pad\];"
+	    }
+	    incr ::padding_count
+	}
+	set name [format $::nfmt [string tolower ${name}\; ]]
+	puts $fd "\tu$width $name $cmt"
+	set ::register_offset $offset
+    }
+}
+
 proc VisitRegisters {fd obj} {
     set cmt    [FormatComment $obj]
     set fmt    $::attribute_format($obj)
@@ -185,14 +229,18 @@ proc VisitRegisters {fd obj} {
     set width  $::attribute_width($obj)
     switch -exact -- $type {
 	base {
-	    puts $fd ""
-	    puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+	    ${::style}::BeginBase $fd $name $fmt $offset $cmt
 	} register {
-	    puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+	    ${::style}::Register $fd $name $fmt $offset $width $cmt
 	}
     }
     foreach child $::children($obj) {
 	VisitRegisters $fd $child
+    }
+    switch -exact -- $type {
+	base {
+	    ${::style}::EndBase $fd $name $fmt $offset $cmt
+	}
     }
 }
 
@@ -203,6 +251,7 @@ if {$argc != 1} {
     exit -1
 }
 set ::reverse_bits 0
+set ::style DefineStyle
 set infile [lindex $argv 0]
 set fd [open $infile "r"]
 set all [read $fd]
