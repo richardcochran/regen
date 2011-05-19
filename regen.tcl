@@ -162,11 +162,13 @@ proc VisitBits {fd obj} {
 	    }
 	} bit {
 	    set pos [FixBit $pos]
-	    puts $fd "#define [format $::nfmt $name] (1<<$pos)$cmt"
+	    set tmp "(1<<$pos)"
+	    puts $fd "#define [format $::nfmt $name] [format $::bfmt $tmp]$cmt"
 	} field {
 	    set mask [Mask $width]
 	    set pos [FixField $pos $width]
-	    puts $fd "#define [format $::nfmt ${name}_SHIFT] ($pos)$cmt"
+	    set tmp "($pos)"
+	    puts $fd "#define [format $::nfmt ${name}_SHIFT] [format $::bfmt $tmp]$cmt"
 	    puts $fd "#define [format $::nfmt ${name}_MASK] ($mask)"
 	}
     }
@@ -252,6 +254,7 @@ if {$argc != 1} {
 }
 set ::reverse_bits 0
 set ::style DefineStyle
+#set ::style StructureStyle
 set infile [lindex $argv 0]
 set fd [open $infile "r"]
 set all [read $fd]
@@ -261,6 +264,7 @@ set ::objcount 0
 set root [New "" void]
 ParsePairs $root $all
 set ::nfmt [NameFormat]
+set ::bfmt "%-7s"
 
 #ShowObject $root 0
 set id [file rootname [file tail $infile]]
