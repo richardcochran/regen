@@ -78,6 +78,10 @@ proc ParsePairs {parent pairs} {
 	}
 }
 
+proc Puts {fd str} {
+	puts $fd [string trimright $str]
+}
+
 proc ShowObject {obj d} {
 	for {set i 0} {$i < $d} {incr i} {
 		puts -nonewline "\t"
@@ -126,18 +130,18 @@ proc Visit {fd obj} {
 	set width  $::attribute_width($obj)
 	switch -exact -- $type {
 		base {
-			puts $fd ""
-			puts $fd "#define ${name}\t[format $fmt $offset]$cmt"
+			Puts $fd ""
+			Puts $fd "#define ${name}\t[format $fmt $offset]$cmt"
 		} register {
-			puts $fd "#define ${name}\t[format $fmt $offset]$cmt"
+			Puts $fd "#define ${name}\t[format $fmt $offset]$cmt"
 		} bit {
 			set pos [FixBit $pos]
-			puts $fd "#define ${name}\t(1<<$pos)$cmt"
+			Puts $fd "#define ${name}\t(1<<$pos)$cmt"
 		} field {
 			set mask [Mask $width]
 			set pos [FixField $pos $width]
-			puts $fd "#define ${name}_SHIFT\t($pos)$cmt"
-			puts $fd "#define ${name}_MASK\t($mask)"
+			Puts $fd "#define ${name}_SHIFT\t($pos)$cmt"
+			Puts $fd "#define ${name}_MASK\t($mask)"
 		}
 	}
 	foreach child $::children($obj) {
@@ -157,19 +161,19 @@ proc VisitBits {fd obj} {
 		base {
 		} register {
 			if {[llength $::children($obj)]} {
-				puts $fd ""
-				puts $fd "/* Bit definitions for the ${name} register */"
+				Puts $fd ""
+				Puts $fd "/* Bit definitions for the ${name} register */"
 			}
 		} bit {
 			set pos [FixBit $pos]
 			set tmp "(1<<$pos)"
-			puts $fd "#define [format $::nfmt $name] [format $::bfmt $tmp]$cmt"
+			Puts $fd "#define [format $::nfmt $name] [format $::bfmt $tmp]$cmt"
 		} field {
 			set mask [Mask $width]
 			set pos [FixField $pos $width]
 			set tmp "($pos)"
-			puts $fd "#define [format $::nfmt ${name}_SHIFT] [format $::bfmt $tmp]$cmt"
-			puts $fd "#define [format $::nfmt ${name}_MASK] ($mask)"
+			Puts $fd "#define [format $::nfmt ${name}_SHIFT] [format $::bfmt $tmp]$cmt"
+			Puts $fd "#define [format $::nfmt ${name}_MASK] ($mask)"
 		}
 	}
 	foreach child $::children($obj) {
@@ -180,15 +184,15 @@ proc VisitBits {fd obj} {
 namespace eval DefineStyle {
 
 	proc BeginBase {fd name fmt offset cmt} {
-		puts $fd ""
-		puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+		Puts $fd ""
+		Puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
 	}
 
 	proc EndBase {fd name fmt offset cmt} {
 	}
 
 	proc Register {fd name fmt offset width cmt} {
-		puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
+		Puts $fd "#define [format $::nfmt $name] [format $fmt $offset]$cmt"
 	}
 }
 
@@ -197,12 +201,12 @@ namespace eval StructureStyle {
 	proc BeginBase {fd name fmt offset cmt} {
 		set ::register_offset 0
 		set ::padding_count 0
-		puts $fd ""
-		puts $fd "struct [string tolower $name] \{ $cmt"
+		Puts $fd ""
+		Puts $fd "struct [string tolower $name] \{ $cmt"
 	}
 
 	proc EndBase {fd name fmt offset cmt} {
-		puts $fd "\};"
+		Puts $fd "\};"
 	}
 
 	proc Register {fd name fmt offset width cmt} {
@@ -211,12 +215,12 @@ namespace eval StructureStyle {
 		if {$offset != $coff} {
 			set pad [expr $offset - $coff]
 			if {$pad > 0} {
-				puts $fd "\tu8  res$::padding_count\[$pad\];"
+				Puts $fd "\tu8  res$::padding_count\[$pad\];"
 			}
 			incr ::padding_count
 		}
 		set name [format $::nfmt [string tolower ${name}\; ]]
-		puts $fd "\tu$width $name $cmt"
+		Puts $fd "\tu$width $name $cmt"
 		set ::register_offset $offset
 	}
 }
