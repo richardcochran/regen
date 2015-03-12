@@ -1,0 +1,39 @@
+
+* Introduction
+
+  This software is a simple utility for generating C language code for
+  device registers from a plain text description file.  This can be
+  useful when developing a device driver, working from the vendor's
+  data sheet.
+
+* License
+
+  The software is copyrighted by the author and is licensed under the
+  GNU General Public License. See the file, COPYING, for details of the
+  license terms.
+
+* Emacs Mode for REG Files
+
+#+BEGIN_EXAMPLE
+(define-generic-mode reg-mode
+  ;; comment list
+  (list "#")
+  ;; keyword list
+  '("base" "bit" "field" "register")
+  ;; font lock list
+  '(
+    ("name" . 'font-lock-type-face)
+    ("offset" . 'font-lock-type-face)
+    ("pos" . 'font-lock-type-face)
+    ("width" . 'font-lock-type-face)
+    ;;
+    ("comment" . 'font-lock-variable-name-face)
+    )
+  ;; auto mode list
+  '(".reg\\'")
+  ;; function list
+  ()
+  ;; doc string
+  "Major mode to edit REG files."
+  )
+#+END_EXAMPLE
