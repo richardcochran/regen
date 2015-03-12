@@ -267,16 +267,39 @@ proc VisitRegisters {fd obj} {
 	}
 }
 
+proc Usage {} {
+	puts ""
+	puts "usage: regen.tcl \[options\] input_file"
+	puts ""
+	puts "  -d  use #define style (default)"
+	puts "  -r  reverse the bit numbering"
+	puts "  -s  use structure style"
+	puts ""
+}
+
 # Main program
 
-if {$argc != 1} {
-	puts "need an input file"
+if {$argc < 1 || $argc > 3} {
+	Usage
 	exit -1
 }
 set ::reverse_bits 0
 set ::style DefineStyle
-#set ::style StructureStyle
-set infile [lindex $argv 0]
+set infile [lindex $argv end]
+for {set i 0} {$i < [expr $argc - 1]} {incr i} {
+	switch -exact -- [lindex $argv $i] {
+		-d {
+			set ::style DefineStyle
+		} -r {
+			set ::reverse_bits 1
+		} -s {
+			set ::style StructureStyle
+		} default {
+			Usage
+			exit -1
+		}
+	}
+}
 set fd [open $infile "r"]
 set all [read $fd]
 close $fd
