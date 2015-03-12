@@ -272,6 +272,7 @@ proc Usage {} {
 	puts "usage: regen.tcl \[options\] input_file"
 	puts ""
 	puts "  -d  use #define style (default)"
+	puts "  -h  show this message"
 	puts "  -r  reverse the bit numbering"
 	puts "  -s  use structure style"
 	puts ""
@@ -283,6 +284,10 @@ if {$argc < 1 || $argc > 3} {
 	Usage
 	exit -1
 }
+if {$argc == 1 && [lindex $argv 0] == "-h"} {
+	Usage
+	exit 0
+}
 set ::reverse_bits 0
 set ::style DefineStyle
 set infile [lindex $argv end]
@@ -290,6 +295,9 @@ for {set i 0} {$i < [expr $argc - 1]} {incr i} {
 	switch -exact -- [lindex $argv $i] {
 		-d {
 			set ::style DefineStyle
+		} -h {
+			Usage
+			exit 0
 		} -r {
 			set ::reverse_bits 1
 		} -s {
