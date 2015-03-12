@@ -1,0 +1,1010 @@
+base {
+name	PAGE0
+offset	0x0
+width	16
+
+register {
+	offset 0x1C
+	width 16
+	name PHYCR2
+	comment {PHY Control Register 2}
+	bit {
+		pos 13
+		name SYNC_ENET_EN
+		comment {Synchronous Ethernet Enable}
+	}
+	bit {
+		pos 11
+		name BC_WRITE
+		comment {Broadcast Write Enable}
+	}
+}
+
+}
+
+base {
+name	PAGE4
+offset	0x4
+width	16
+
+register {
+	offset 0x14
+	width 16
+	name PTP_CTL
+	comment {PTP Control Register}
+	field {
+		pos 10
+		width 3
+		name TRIG_SEL
+		comment {PTP Trigger Select}
+	}
+	bit {
+		pos 9
+		name TRIG_DIS
+		comment {Disable PTP Trigger}
+	}
+	bit {
+		pos 8
+		name TRIG_EN
+		comment {Enable PTP Trigger}
+	}
+	bit {
+		pos 7
+		name TRIG_READ
+		comment {Read PTP Trigger}
+	}
+	bit {
+		pos 6
+		name TRIG_LOAD
+		comment {Load PTP Trigger}
+	}
+	bit {
+		pos 5
+		name PTP_RD_CLK
+		comment {Read PTP Clock}
+	}
+	bit {
+		pos 4
+		name PTP_LOAD_CLK
+		comment {Load PTP Clock}
+	}
+	bit {
+		pos 3
+		name PTP_STEP_CLK
+		comment {Step PTP Clock}
+	}
+	bit {
+		pos 2
+		name PTP_ENABLE
+		comment {Enable PTP Clock}
+	}
+	bit {
+		pos 1
+		name PTP_DISABLE
+		comment {Disable PTP Clock}
+	}
+	bit {
+		pos 0
+		name PTP_RESET
+		comment {Reset PTP Clock}
+	}
+}
+
+register {
+	offset 0x15
+	width 16
+	name PTP_TDR
+	comment {PTP Time Data Register}
+}
+
+register {
+	offset 0x16
+	width 16
+	name PTP_STS
+	comment {PTP Status Register}
+	bit {
+		pos 11
+		name TXTS_RDY
+		comment {Transmit Timestamp Ready}
+	}
+	bit {
+		pos 10
+		name RXTS_RDY
+		comment {Receive Timestamp Ready}
+	}
+	bit {
+		pos 9
+		name TRIG_DONE
+		comment {PTP Trigger Done}
+	}
+	bit {
+		pos 8
+		name EVENT_RDY
+		comment {PTP Event Timestamp Ready}
+	}
+	bit {
+		pos 3
+		name TXTS_IE
+		comment {Transmit Timestamp Interrupt Enable}
+	}
+	bit {
+		pos 2
+		name RXTS_IE
+		comment {Receive Timestamp Interrupt Enable}
+	}
+	bit {
+		pos 1
+		name TRIG_IE
+		comment {Trigger Interrupt Enable}
+	}
+	bit {
+		pos 0
+		name EVENT_IE
+		comment {Event Interrupt Enable}
+	}
+}
+
+register {
+	offset 0x17
+	width 16
+	name PTP_TSTS
+	comment {PTP Trigger Status Register}
+	bit {
+		pos 15
+		name TRIG7_ERROR
+		comment {Trigger 7 Error}
+	}
+	bit {
+		pos 14
+		name TRIG7_ACTIVE
+		comment {Trigger 7 Active}
+	}
+	bit {
+		pos 13
+		name TRIG6_ERROR
+		comment {Trigger 6 Error}
+	}
+	bit {
+		pos 12
+		name TRIG6_ACTIVE
+		comment {Trigger 6 Active}
+	}
+	bit {
+		pos 11
+		name TRIG5_ERROR
+		comment {Trigger 5 Error}
+	}
+	bit {
+		pos 10
+		name TRIG5_ACTIVE
+		comment {Trigger 5 Active}
+	}
+	bit {
+		pos 9
+		name TRIG4_ERROR
+		comment {Trigger 4 Error}
+	}
+	bit {
+		pos 8
+		name TRIG4_ACTIVE
+		comment {Trigger 4 Active}
+	}
+	bit {
+		pos 7
+		name TRIG3_ERROR
+		comment {Trigger 3 Error}
+	}
+	bit {
+		pos 6
+		name TRIG3_ACTIVE
+		comment {Trigger 3 Active}
+	}
+	bit {
+		pos 5
+		name TRIG2_ERROR
+		comment {Trigger 2 Error}
+	}
+	bit {
+		pos 4
+		name TRIG2_ACTIVE
+		comment {Trigger 2 Active}
+	}
+	bit {
+		pos 3
+		name TRIG1_ERROR
+		comment {Trigger 1 Error}
+	}
+	bit {
+		pos 2
+		name TRIG1_ACTIVE
+		comment {Trigger 1 Active}
+	}
+	bit {
+		pos 1
+		name TRIG0_ERROR
+		comment {Trigger 0 Error}
+	}
+	bit {
+		pos 0
+		name TRIG0_ACTIVE
+		comment {Trigger 0 Active}
+	}
+}
+
+register {
+	offset 0x18
+	width 16
+	name PTP_RATEL
+	comment {PTP Rate Low Register}
+}
+
+register {
+	offset 0x19
+	width 16
+	name PTP_RATEH
+	comment {PTP Rate High Register}
+	bit {
+		pos 15
+		name PTP_RATE_DIR
+		comment {PTP Rate Direction}
+	}
+	bit {
+		pos 14
+		name PTP_TMP_RATE
+		comment {PTP Temporary Rate}
+	}
+	field {
+		pos 0
+		width 10
+		name PTP_RATE_HI
+		comment {PTP Rate High 10-bits}
+	}
+}
+
+register {
+	offset 0x1a
+	width 16
+	name PTP_RDCKSUM
+	comment {PTP Read Checksum}
+}
+
+register {
+	offset 0x1b
+	width 16
+	name PTP_WRCKSUM
+	comment {PTP Write Checksum}
+}
+
+register {
+	offset 0x1c
+	width 16
+	name PTP_TXTS
+	comment {PTP Transmit Timestamp Register, in four 16-bit reads}
+}
+
+register {
+	offset 0x1d
+	width 16
+	name PTP_RXTS
+	comment {PTP Receive Timestamp Register, in six? 16-bit reads}
+}
+
+register {
+	offset 0x1e
+	width 16
+	name PTP_ESTS
+	comment {PTP Event Status Register}
+	field {
+		pos 8
+		width 3
+		name EVNTS_MISSED
+		comment {Indicates number of events missed}
+	}
+	field {
+		pos 6
+		width 2
+		name EVNT_TS_LEN
+		comment {Indicates length of the Timestamp field in 16-bit words minus 1}
+	}
+	bit {
+		pos 5
+		name EVNT_RF
+		comment {Indicates whether the event is a rise or falling event}
+	}
+	field {
+		pos 2
+		width 3
+		name EVNT_NUM
+		comment {Indicates Event Timestamp Unit which detected an event}
+	}
+	bit {
+		pos 1
+		name MULT_EVNT
+		comment {Indicates multiple events were detected at the same time}
+	}
+	bit {
+		pos 0
+		name EVENT_DET
+		comment {PTP Event Detected}
+	}
+}
+
+register {
+	offset 0x1f
+	width 16
+	name PTP_EDATA
+	comment {PTP Event Data Register}
+	bit {
+		pos 15
+		name E7_RISE
+		comment {Indicates direction of Event 7}
+	}
+	bit {
+		pos 14
+		name E7_DET
+		comment {Indicates Event 7 detected}
+	}
+	bit {
+		pos 13
+		name E6_RISE
+		comment {Indicates direction of Event 6}
+	}
+	bit {
+		pos 12
+		name E6_DET
+		comment {Indicates Event 6 detected}
+	}
+	bit {
+		pos 11
+		name E5_RISE
+		comment {Indicates direction of Event 5}
+	}
+	bit {
+		pos 10
+		name E5_DET
+		comment {Indicates Event 5 detected}
+	}
+	bit {
+		pos 9
+		name E4_RISE
+		comment {Indicates direction of Event 4}
+	}
+	bit {
+		pos 8
+		name E4_DET
+		comment {Indicates Event 4 detected}
+	}
+	bit {
+		pos 7
+		name E3_RISE
+		comment {Indicates direction of Event 3}
+	}
+	bit {
+		pos 6
+		name E3_DET
+		comment {Indicates Event 3 detected}
+	}
+	bit {
+		pos 5
+		name E2_RISE
+		comment {Indicates direction of Event 2}
+	}
+	bit {
+		pos 4
+		name E2_DET
+		comment {Indicates Event 2 detected}
+	}
+	bit {
+		pos 3
+		name E1_RISE
+		comment {Indicates direction of Event 1}
+	}
+	bit {
+		pos 2
+		name E1_DET
+		comment {Indicates Event 1 detected}
+	}
+	bit {
+		pos 1
+		name E0_RISE
+		comment {Indicates direction of Event 0}
+	}
+	bit {
+		pos 0
+		name E0_DET
+		comment {Indicates Event 0 detected}
+	}
+}
+
+}
+
+base {
+name	PAGE5
+offset	0x5
+width	16
+
+register {
+	offset 0x14
+	width 16
+	name PTP_TRIG
+	comment {PTP Trigger Configuration Register}
+	bit {
+		pos 15
+		name TRIG_PULSE
+		comment {generate a Pulse rather than a single edge}
+	}
+	bit {
+		pos 14
+		name TRIG_PER
+		comment {generate a periodic signal}
+	}
+	bit {
+		pos 13
+		name TRIG_IF_LATE
+		comment {trigger immediately if already past}
+	}
+	bit {
+		pos 12
+		name TRIG_NOTIFY
+		comment {Trigger Notification Enable}
+	}
+	field {
+		pos 8
+		width 4
+		name TRIG_GPIO
+		comment {Trigger GPIO Connection, value 1-12}
+	}
+	bit {
+		pos 7
+		name TRIG_TOGGLE
+		comment {Trigger Toggle Mode Enable}
+	}
+	field {
+		pos 1
+		width 3
+		name TRIG_CSEL
+		comment {Trigger Configuration Select}
+	}
+	bit {
+		pos 0
+		name TRIG_WR
+		comment {Trigger Configuration Write}
+	}
+}
+
+register {
+	offset 0x15
+	width 16
+	name PTP_EVNT
+	comment {PTP Event Configuration Register}
+	bit {
+		pos 14
+		name EVNT_RISE
+		comment {Event Rise Detect Enable}
+	}
+	bit {
+		pos 13
+		name EVNT_FALL
+		comment {Event Fall Detect Enable}
+	}
+	bit {
+		pos 12
+		name EVNT_SINGLE
+		comment {enable single event capture operation}
+	}
+	field {
+		pos 8
+		width 4
+		name EVNT_GPIO
+		comment {Event GPIO Connection, value 1-12}
+	}
+	field {
+		pos 1
+		width 3
+		name EVNT_SEL
+		comment {Event Select}
+	}
+	bit {
+		pos 0
+		name EVNT_WR
+		comment {Event Configuration Write}
+	}
+}
+
+register {
+	offset 0x16
+	width 16
+	name PTP_TXCFG0
+	comment {PTP Transmit Configuration Register 0}
+	bit {
+		pos 15
+		name SYNC_1STEP
+		comment {insert timestamp into transmit Sync Messages}
+	}
+	bit {
+		pos 13
+		name DR_INSERT
+		comment {Insert Delay_Req Timestamp in Delay_Resp (dangerous)}
+	}
+	bit {
+		pos 12
+		name NTP_TS_EN
+		comment {Enable Timestamping of NTP Packets}
+	}
+	bit {
+		pos 11
+		name IGNORE_2STEP
+		comment {Ignore Two_Step flag for One-Step operation}
+	}
+	bit {
+		pos 10
+		name CRC_1STEP
+		comment {Disable checking of CRC for One-Step operation}
+	}
+	bit {
+		pos 9
+		name CHK_1STEP
+		comment {Enable UDP Checksum correction for One-Step Operation}
+	}
+	bit {
+		pos 8
+		name IP1588_EN
+		comment {Enable IEEE 1588 defined IP address filter}
+	}
+	bit {
+		pos 7
+		name TX_L2_EN
+		comment {Layer2 Timestamp Enable}
+	}
+	bit {
+		pos 6
+		name TX_IPV6_EN
+		comment {IPv6 Timestamp Enable}
+	}
+	bit {
+		pos 5
+		name TX_IPV4_EN
+		comment {IPv4 Timestamp Enable}
+	}
+	field {
+		pos 1
+		width 4
+		name TX_PTP_VER
+		comment {Enable Timestamp capture for IEEE 1588 version X}
+	}
+	bit {
+		pos 0
+		name TX_TS_EN
+		comment {Transmit Timestamp Enable}
+	}
+}
+
+register {
+	offset 0x17
+	width 16
+	name PTP_TXCFG1
+	comment {PTP Transmit Configuration Register 1}
+	field {
+		pos 8
+		width 8
+		name BYTE0_MASK
+		comment {Bit mask to be used for matching Byte0 of the PTP Message}
+	}
+	field {
+		pos 0
+		width 8
+		name BYTE0_DATA
+		comment {Data to be used for matching Byte0 of the PTP Message}
+	}
+}
+
+register {
+	offset 0x18
+	width 16
+	name PSF_CFG0
+	comment {PHY Status Frame Configuration Register 0}
+	field {
+		pos 11
+		width 2
+		name MAC_SRC_ADD
+		comment {Status Frame Mac Source Address}
+	}
+	field {
+		pos 8
+		width 3
+		name MIN_PRE
+		comment {Status Frame Minimum Preamble}
+	}
+	bit {
+		pos 7
+		name PSF_ENDIAN
+		comment {Status Frame Endian Control}
+	}
+	bit {
+		pos 6
+		name PSF_IPV4
+		comment {Status Frame IPv4 Enable}
+	}
+	bit {
+		pos 5
+		name PSF_PCF_RD
+		comment {Control Frame Read PHY Status Frame Enable}
+	}
+	bit {
+		pos 4
+		name PSF_ERR_EN
+		comment {Error PHY Status Frame Enable}
+	}
+	bit {
+		pos 3
+		name PSF_TXTS_EN
+		comment {Transmit Timestamp PHY Status Frame Enable}
+	}
+	bit {
+		pos 2
+		name PSF_RXTS_EN
+		comment {Receive Timestamp PHY Status Frame Enable}
+	}
+	bit {
+		pos 1
+		name PSF_TRIG_EN
+		comment {Trigger PHY Status Frame Enable}
+	}
+	bit {
+		pos 0
+		name PSF_EVNT_EN
+		comment {Event PHY Status Frame Enable}
+	}
+}
+
+register {
+	offset 0x19
+	width 16
+	name PTP_RXCFG0
+	comment {PTP Receive Configuration Register 0}
+	bit {
+		pos 15
+		name DOMAIN_EN
+		comment {Domain Match Enable}
+	}
+	bit {
+		pos 14
+		name ALT_MAST_DIS
+		comment {Alternate Master Timestamp Disable}
+	}
+	bit {
+		pos 13
+		name USER_IP_SEL
+		comment {Selects portion of IP address accessible thru PTP_RXCFG2}
+	}
+	bit {
+		pos 12
+		name USER_IP_EN
+		comment {Enable User-programmed IP address filter}
+	}
+	bit {
+		pos 11
+		name RX_SLAVE
+		comment {Receive Slave Only}
+	}
+	field {
+		pos 8
+		width 4
+		name IP1588_EN
+		comment {Enable IEEE 1588 defined IP address filters}
+	}
+	bit {
+		pos 7
+		name RX_L2_EN
+		comment {Layer2 Timestamp Enable}
+	}
+	bit {
+		pos 6
+		name RX_IPV6_EN
+		comment {IPv6 Timestamp Enable}
+	}
+	bit {
+		pos 5
+		name RX_IPV4_EN
+		comment {IPv4 Timestamp Enable}
+	}
+	field {
+		pos 1
+		width 4
+		name RX_PTP_VER
+		comment {Enable Timestamp capture for IEEE 1588 version X}
+	}
+	bit {
+		pos 0
+		name RX_TS_EN
+		comment {Receive Timestamp Enable}
+	}
+}
+
+register {
+	offset 0x1a
+	width 16
+	name PTP_RXCFG1
+	comment {PTP Receive Configuration Register 1}
+	field {
+		pos 8
+		width 8
+		name BYTE0_MASK
+		comment {Bit mask to be used for matching Byte0 of the PTP Message}
+	}
+	field {
+		pos 0
+		width 8
+		name BYTE0_DATA
+		comment {Data to be used for matching Byte0 of the PTP Message}
+	}
+}
+
+register {
+	offset 0x1b
+	width 16
+	name PTP_RXCFG2
+	comment {PTP Receive Configuration Register 2}
+}
+
+register {
+	offset 0x1c
+	width 16
+	name PTP_RXCFG3
+	comment {PTP Receive Configuration Register 3}
+	field {
+		pos 12
+		width 4
+		name TS_MIN_IFG
+		comment {Minimum Inter-frame Gap}
+	}
+	bit {
+		pos 11
+		name ACC_UDP
+		comment {Record Timestamp if UDP Checksum Error}
+	}
+	bit {
+		pos 10
+		name ACC_CRC
+		comment {Record Timestamp if CRC Error}
+	}
+	bit {
+		pos 9
+		name TS_APPEND
+		comment {Append Timestamp for L2}
+	}
+	bit {
+		pos 8
+		name TS_INSERT
+		comment {Enable Timestamp Insertion}
+	}
+	field {
+		pos 0
+		width 8
+		name PTP_DOMAIN
+		comment {PTP Message domainNumber field}
+	}
+}
+
+register {
+	offset 0x1d
+	width 16
+	name PTP_RXCFG4
+	comment {PTP Receive Configuration Register 4}
+	bit {
+		pos 15
+		name IPV4_UDP_MOD
+		comment {Enable IPV4 UDP Modification}
+	}
+	bit {
+		pos 14
+		name TS_SEC_EN
+		comment {Enable Timestamp Seconds}
+	}
+	field {
+		pos 12
+		width 2
+		name TS_SEC_LEN
+		comment {Inserted Timestamp Seconds Length}
+	}
+	field {
+		pos 6
+		width 6
+		name RXTS_NS_OFF
+		comment {Receive Timestamp Nanoseconds offset}
+	}
+	field {
+		pos 0
+		width 6
+		name RXTS_SEC_OFF
+		comment {Receive Timestamp Seconds offset}
+	}
+}
+
+register {
+	offset 0x1e
+	width 16
+	name PTP_TRDL
+	comment {PTP Temporary Rate Duration Low Register}
+}
+
+register {
+	offset 0x1f
+	width 16
+	name PTP_TRDH
+	comment {PTP Temporary Rate Duration High Register}
+}
+
+}
+
+base {
+name	PAGE6
+offset	0x6
+width	16
+
+register {
+	offset 0x14
+	width 16
+	name PTP_COC
+	comment {PTP Clock Output Control Register}
+	bit {
+		pos 15
+		name PTP_CLKOUT_EN
+		comment {PTP Clock Output Enable}
+	}
+	bit {
+		pos 14
+		name PTP_CLKOUT_SEL
+		comment {PTP Clock Output Source Select}
+	}
+	bit {
+		pos 13
+		name PTP_CLKOUT_SPEEDSEL
+		comment {PTP Clock Output I/O Speed Select}
+	}
+	field {
+		pos 0
+		width 8
+		name PTP_CLKDIV
+		comment {PTP Clock Divide-by Value}
+	}
+}
+
+register {
+	offset 0x15
+	width 16
+	name PSF_CFG1
+	comment {PHY Status Frame Configuration Register 1}
+	field {
+		pos 12
+		width 4
+		name PTPRESERVED
+		comment {PTP v2 reserved field}
+	}
+	field {
+		pos 8
+		width 4
+		name VERSIONPTP
+		comment {PTP v2 versionPTP field}
+	}
+	field {
+		pos 4
+		width 4
+		name TRANSPORT_SPECIFIC
+		comment {PTP v2 Header transportSpecific field}
+	}
+	field {
+		pos 0
+		width 4
+		name MESSAGETYPE
+		comment {PTP v2 messageType field}
+	}
+}
+
+register {
+	offset 0x16
+	width 16
+	name PSF_CFG2
+	comment {PHY Status Frame Configuration Register 2}
+}
+
+register {
+	offset 0x17
+	width 16
+	name PSF_CFG3
+	comment {PHY Status Frame Configuration Register 3}
+}
+
+register {
+	offset 0x18
+	width 16
+	name PSF_CFG4
+	comment {PHY Status Frame Configuration Register 4}
+}
+
+register {
+	offset 0x19
+	width 16
+	name PTP_SFDCFG
+	comment {PTP SFD Configuration Register}
+	field {
+		pos 4
+		width 4
+		name TX_SFD_GPIO
+		comment {TX SFD GPIO Select, value 1-12}
+	}
+	field {
+		pos 0
+		width 4
+		name RX_SFD_GPIO
+		comment {RX SFD GPIO Select, value 1-12}
+	}
+}
+
+register {
+	offset 0x1a
+	width 16
+	name PTP_INTCTL
+	comment {PTP Interrupt Control Register}
+	field {
+		pos 0
+		width 4
+		name PTP_INT_GPIO
+		comment {PTP Interrupt GPIO Select}
+	}
+}
+
+register {
+	offset 0x1b
+	width 16
+	name PTP_CLKSRC
+	comment {PTP Clock Source Register}
+	field {
+		pos 14
+		width 2
+		name CLK_SRC
+		comment {PTP Clock Source Select}
+	}
+	field {
+		pos 0
+		width 7
+		name CLK_SRC_PER
+		comment {PTP Clock Source Period}
+	}
+}
+
+register {
+	offset 0x1c
+	width 16
+	name PTP_ETR
+	comment {PTP Ethernet Type Register}
+}
+
+register {
+	offset 0x1d
+	width 16
+	name PTP_OFF
+	comment {PTP Offset Register}
+	field {
+		pos 0
+		width 8
+		name PTP_OFFSET
+		comment {PTP Message offset from preceding header}
+	}
+}
+
+register {
+	offset 0x1e
+	width 16
+	name PTP_GPIOMON
+	comment {PTP GPIO Monitor Register}
+}
+
+register {
+	offset 0x1f
+	width 16
+	name PTP_RXHASH
+	comment {PTP Receive Hash Register}
+}
+
+}

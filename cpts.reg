@@ -1,0 +1,193 @@
+base {
+name	CPSW_CPTS
+offset	0x0
+width	32
+
+register {
+	offset 0x0
+	width 32
+	name IDVER
+	comment {Identification and version}
+	field {
+		pos 16
+		width 16
+		name TX_IDENT
+		comment {TX Identification Value}
+	}
+	field {
+		pos 11
+		width 5
+		name RTL_VER
+		comment {RTL Version Value}
+	}
+	field {
+		pos 8
+		width 3
+		name MAJOR_VER
+		comment {Major Version Value}
+	}
+	field {
+		pos 0
+		width 8
+		name MINOR_VER
+		comment {Minor Version Value}
+	}
+}
+
+register {
+	offset 0x4
+	width 32
+	name CONTROL
+	comment {Time sync control}
+	bit {
+		pos 11
+		name HW4_TS_PUSH_EN
+		comment {Hardware push 4 enable}
+	}
+	bit {
+		pos 10
+		name HW3_TS_PUSH_EN
+		comment {Hardware push 3 enable}
+	}
+	bit {
+		pos 9
+		name HW2_TS_PUSH_EN
+		comment {Hardware push 2 enable}
+	}
+	bit {
+		pos 8
+		name HW1_TS_PUSH_EN
+		comment {Hardware push 1 enable}
+	}
+	bit {
+		pos 1
+		name INT_TEST
+		comment {Interrupt Test}
+	}
+	bit {
+		pos 0
+		name CPTS_EN
+		comment {Time Sync Enable}
+	}
+}
+
+register {
+	offset 0xC
+	width 32
+	name TS_PUSH
+	comment {Time stamp event push}
+	bit {
+		pos 0
+		name TS_PUSH
+		comment {Time stamp event push}
+	}
+}
+
+register {
+	offset 0x10
+	width 32
+	name TS_LOAD_VAL
+	comment {Time stamp load value}
+}
+
+register {
+	offset 0x14
+	width 32
+	name TS_LOAD_EN
+	comment {Time stamp load enable}
+	bit {
+		pos 0
+		name TS_LOAD_EN
+		comment {Time Stamp Load}
+	}
+}
+
+register {
+	offset 0x20
+	width 32
+	name INTSTAT_RAW
+	comment {Time sync interrupt status raw}
+	bit {
+		pos 0
+		name TS_PEND_RAW
+		comment {int read (before enable)}
+	}
+}
+
+register {
+	offset 0x24
+	width 32
+	name INTSTAT_MASKED
+	comment {Time sync interrupt status masked}
+	bit {
+		pos 0
+		name TS_PEND
+		comment {masked interrupt read (after enable)}
+	}
+}
+
+register {
+	offset 0x28
+	width 32
+	name INT_ENABLE
+	comment {Time sync interrupt enable}
+	bit {
+		pos 0
+		name TS_PEND_EN
+		comment {masked interrupt enable}
+	}
+}
+
+register {
+	offset 0x30
+	width 32
+	name EVENT_POP
+	comment {Event interrupt pop}
+	bit {
+		pos 0
+		name EVENT_POP
+		comment {writing discards one event}
+	}
+}
+
+register {
+	offset 0x34
+	width 32
+	name EVENT_LOW
+	comment {32 Bit Event Time Stamp}
+}
+
+register {
+	offset 0x38
+	width 32
+	name EVENT_HIGH
+	comment {Event Type Fields}
+	field {
+		pos 24
+		width 5
+		name PORT_NUMBER
+		comment {Indicates Ethernet port or HW pin}
+	}
+	field {
+		pos 20
+		width 4
+		name EVENT_TYPE
+		comment {Time sync event type}
+	}
+	field {
+		pos 16
+		width 4
+		name MESSAGE_TYPE
+		comment {PTP message type}
+	}
+	field {
+		pos 0
+		width 16
+		name SEQUENCE_ID
+		comment {PTP message sequence ID}
+	}
+}
+
+
+#### eof
+}
